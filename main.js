@@ -1,13 +1,55 @@
 const minusBtn = document.querySelector('.input__minus');
 const plusBtn = document.querySelector('.input__plus');
 let userInput = document.querySelector('.input__number');
+const priceProduct = document.querySelector('.details__prices')
+const message__carrito = document.querySelector('.message__carrito')
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
 
 let userInputNumber = 0;
+
+let productos = [{
+    name: "Adidas NDM_R1",
+    price: 40000,
+    color: "black & violet",
+    img: "../images/zapa1.jpg"
+}]
+
+//precio del producto
+priceProduct.innerHTML = `<p class="details__now">$${productos[0].price}<span class="details__discount">50%</span></p>
+<p class="details__before">$${productos[0].price*2}</p> `
+
+
+
+//mostrar mensaje 
+document.addEventListener('click', (e) => {
+    if(!e.target.classList.contains('cart-modal__chekount')) return;
+
+    message__carrito.style.visibility = "visible";
+    message__carrito.style.height = "50px";
+    message__carrito.style.transition = "all 0.3s ease-in-out"
+
+    setTimeout(()=>{
+        message__carrito.style.height = "0";
+        message__carrito.style.visibility = "hidden";
+        message__carrito.style.transition = "all 0.3s ease-in-out"
+        productContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
+        lastValue = 0;
+        cartNotification.innerText = lastValue;
+        userInput.value = 0;
+        userInputNumber = 0;
+    },2500)
+})
+
+
+const saveLocalStorage = array => {
+    localStorage.setItem('productos', JSON.stringify(array))
+}
 
 plusBtn.addEventListener('click', ()=>{
     userInputNumber++;
     userInput.value = userInputNumber;
-    console.log(userInputNumber);
 });
 
 minusBtn.addEventListener('click', ()=>{
@@ -16,7 +58,6 @@ minusBtn.addEventListener('click', ()=>{
         userInputNumber = 0;
     }
     userInput.value = userInputNumber;
-    console.log(userInputNumber);
 });
 
 // Agregar el total de productos al carrito cuando se presiona el boton ADD TO CART
@@ -29,7 +70,10 @@ addToCartBtn.addEventListener('click', ()=>{
     
     cartNotification.innerText = lastValue;
     cartNotification.style.display = 'block';
-    drawProductInModal();
+    cart =  productos;
+        saveLocalStorage(cart)
+        drawProductInModal(cart);
+        drawProductInModal(cart);
     
 });
 
@@ -44,7 +88,9 @@ cartIconBtn.addEventListener('click', ()=>{
     if(lastValue === 0){
         productContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
     }else{
-        drawProductInModal();
+        cart = productos;
+        saveLocalStorage(cart)
+        drawProductInModal(cart);
     }
     
 });
@@ -74,29 +120,12 @@ previusGalleryBtn.addEventListener('click', ()=>{
     changePreviusImage(imageContainer);
 });
 
-
-//Mostrar el modal de imagenes cuando hago click en la imagen principal.
-const imagesModal = document.querySelector('.modal-gallery__background');
-const closeModalBtn = document.querySelector('.modal-gallery__close');
-
-imageContainer.addEventListener('click', ()=>{
-    if(window.innerWidth >= 1115){
-        imagesModal.style.display = 'grid';
-    }
-    
-});
-
-closeModalBtn.addEventListener('click', ()=>{
-    imagesModal.style.display = 'none';
-});
-
 //Cambiar las imagenes principales desde los zapatillaAdidas
 let zapatillaAdidas = document.querySelectorAll('.gallery__nmd_r1')
 zapatillaAdidas = [...zapatillaAdidas]
 
 zapatillaAdidas.forEach(adidas => {
     adidas.addEventListener('click', event=>{
-        console.log(event.target.id)
         imageContainer.style.backgroundImage = `url('../images/zapa${event.target.id}.jpg')`
     });
 });
@@ -108,7 +137,6 @@ modalzapatillaAdidas = [...modalzapatillaAdidas]
 
 modalzapatillaAdidas.forEach(modaladidas => {
     modaladidas.addEventListener('click', event=>{
-        console.log(event.target.id.slice(-1))
         modalImageContainer.style.backgroundImage = `url('../images/zapa${event.target.id.slice(-1)}.jpg')`
     });
 });
@@ -133,7 +161,6 @@ const closeModalNavbar = document.querySelector('.modal-navbar__close-icon');
 modalNavbar.style.display = 'none'
 
 hamburgerMenu.addEventListener('click', ()=>{
-    console.log('abrir modal');
     modalNavbar.style.display = 'block';
 });
 
@@ -147,20 +174,21 @@ closeModalNavbar.addEventListener('click', ()=>{
 
 // FUNCIONES
 
-function drawProductInModal(){
+function drawProductInModal(array){
+    const {name, img, price} = array[0];
     productContainer.innerHTML = `
         <div class="cart-modal__details-container">
-            <img class="cart-modal__image" src="./images/zapa1.jpg" alt="">
+            <img class="cart-modal__image" src="${img}" alt="">
             <div>
-            <p class="cart-modal__product">NMD_R1 Limited Edition...</p>
-            <p class="cart-modal__price">$125 x3 <span>$375.00</span> </p>
+            <p class="cart-modal__product">${name}</p>
+            <p class="cart-modal__price">$${price}</span></p>
             </div>
             <img class="cart-modal__delete" src="./images/icon-delete.svg" alt="delete">
         </div>
         <button class="cart-modal__chekount" >Checkout</button>`
     deleteProduct()
     let priceModal = document.querySelector('.cart-modal__price');
-    priceModal.innerHTML = `$125 x${lastValue} <span>$${lastValue*125}.00</span>`;
+    priceModal.innerHTML = `$${price} x${lastValue} <span>$${lastValue*price}.00</span>`;
 }
 
 function changeNextImage(imgContainer){
