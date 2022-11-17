@@ -5,7 +5,7 @@
 body{
     background: #131415
 }
-.login-box{
+.login-box, .register-box{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -17,7 +17,7 @@ body{
     border-radius: 10px;
 }
 
-.login-box h2{
+.login-box h2 , .register-box h2{
     margin: 0 0 30px;
     padding: 0;
     color: #8f7cec;
