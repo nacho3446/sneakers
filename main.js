@@ -12,13 +12,18 @@ let userInputNumber = 0;
 let productos = [{
     name: "Adidas NDM_R1",
     price: 40000,
-    color: "black & violet",
-    img: "../images/zapa1.jpg"
+    color: ['black','white','grey'],
+    img: [["../images/zapa1.jpg","../images/zapa2.jpg","../images/zapa3.jpg"],["../images/zapa-white-1.jpg","../images/zapa-white-2.jpg","../images/zapa-white-3.jpg"],["../images/zapa-gray-1.jpg","../images/zapa-gray-2.jpg","../images/zapa-gray-3.jpg"]]
 }]
 
 //precio del producto
-priceProduct.innerHTML = `<p class="details__now">$${productos[0].price}<span class="details__discount">50%</span></p>
-<p class="details__before">$${productos[0].price*2}</p> `
+const createHtmlPrices = array => {
+    return `
+    <p class="details_now">$${productos[0].price}<span class="details_discount">50%</span></p>
+    <p class="details__before">$${productos[0].price*2}</p>
+    <button class="btnColor"
+    ></button> `
+}
 
 
 
