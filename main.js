@@ -3,29 +3,72 @@ const plusBtn = document.querySelector('.input__plus');
 let userInput = document.querySelector('.input__number');
 const priceProduct = document.querySelector('.details__prices')
 const message__carrito = document.querySelector('.message__carrito')
+const buttons__colors= document.querySelector('.buttons__colors')
+const galeryImg = document.querySelector('.gallery__nmd_r1s')
+const btnAddCart = document.querySelector('.btnAddCart')
+const imageContainer = document.querySelector('.gallery__image-container');
+const message__modal = document.querySelector('.message__modal')
+const cart__empty = document.querySelector('.cart-empty')
+
+
+//--------------------------------------------------------DATOS-----------------------------------------------------//
+let userInputNumber = 0;
+
+let count = 1;
+
+let quantity = 1;
+
+let productos = [{
+    name: `Adidas_NDM_R1`,
+    price: 225,
+    color: ['black','white','gray'],
+    img: [[["../images/zapa1.jpg"],["../images/zapa2.jpg"],["../images/zapa3.jpg"]],[["../images/zapa4.jpg"],["../images/zapa5.jpg"],["../images/zapa6.jpg"]],[["../images/zapa7.jpg"],["../images/zapa8.jpg"],["../images/zapa9.jpg"]]]
+}]
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+const saveLocalStorage = array => localStorage.setItem('productos', JSON.stringify(array))
 
-let userInputNumber = 0;
 
-let productos = [{
-    name: "Adidas NDM_R1",
-    price: 40000,
-    color: ['black','white','grey'],
-    img: [["../images/zapa1.jpg","../images/zapa2.jpg","../images/zapa3.jpg"],["../images/zapa-white-1.jpg","../images/zapa-white-2.jpg","../images/zapa-white-3.jpg"],["../images/zapa-gray-1.jpg","../images/zapa-gray-2.jpg","../images/zapa-gray-3.jpg"]]
-}]
+//----------------------------------------------------------FIN DE DATOS ----------------------------------------/
 
+
+//------------------------------RENDERIZADO DE ELEMENTOS  (buttons,mensajes) -----------------------------------//
 //precio del producto
 const createHtmlPrices = array => {
     return `
-    <p class="details_now">$${productos[0].price}<span class="details_discount">50%</span></p>
-    <p class="details__before">$${productos[0].price*2}</p>
-    <button class="btnColor"
-    ></button> `
+    <p class="details__now">$${array[0].price}<span class="details__discount"> 50%</span></p>
+    <p class="details__before">$${array[0].price*2}</p>
+    `
 }
 
+const renderCreateHTMLPrices = array => priceProduct.innerHTML = createHtmlPrices(array)
 
+//crear botones de colores
+const createHTMLButtonColor = (array) => {
+    return buttons__colors.innerHTML= `
+    <h3>Colors: 
+
+    <button class="btnColor" style="background-color:black; color:white" 
+    data-colors=${array[0].color[0]}>Black</button>
+
+    <button class="btnColor" 
+    data-colors=${array[0].color[1]}>White</button> 
+
+    <button class="btnColor" style="background-color:gray; color:white"
+    data-colors=${array[0].color[2]}>Gray</button>  
+    </h3>
+    `
+}
+
+//crear btnAddToCart
+const btnAdd = (indice) => {
+    return`<button class="details__button"
+    data-name=${productos[0].name}
+    data-img=${productos[0].img[indice][0]}
+    data-price=${productos[0].price}
+    data-color=${productos[0].color[indice]}> <img src="./images/icon-cart-white.svg" alt=""> Add to cart</button>`
+}
 
 //mostrar mensaje 
 document.addEventListener('click', (e) => {
@@ -34,23 +77,21 @@ document.addEventListener('click', (e) => {
     message__carrito.style.visibility = "visible";
     message__carrito.style.height = "50px";
     message__carrito.style.transition = "all 0.3s ease-in-out"
-
     setTimeout(()=>{
         message__carrito.style.height = "0";
         message__carrito.style.visibility = "hidden";
         message__carrito.style.transition = "all 0.3s ease-in-out"
-        productContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
+        message__modal.innerHTML='';
+        cartModal.innerHTML= verificarCarrito()
+        // cartModal.innerHTML= '<p class="cart-empty">Your cart is empty</p>'
         lastValue = 0;
         cartNotification.innerText = lastValue;
         userInput.value = 0;
         userInputNumber = 0;
     },2500)
+
+   
 })
-
-
-const saveLocalStorage = array => {
-    localStorage.setItem('productos', JSON.stringify(array))
-}
 
 plusBtn.addEventListener('click', ()=>{
     userInputNumber++;
@@ -65,99 +106,158 @@ minusBtn.addEventListener('click', ()=>{
     userInput.value = userInputNumber;
 });
 
-// Agregar el total de productos al carrito cuando se presiona el boton ADD TO CART
+
+//renderizar elementos al cargar la pagina
+const renderOnLoad = () => {
+    galeryImg.innerHTML = productos[0].img[0].map(img => createHTMLImg(img))
+    imageContainer.style.backgroundImage = `url('../images/zapa1.jpg')`
+    btnAddCart.innerHTML = btnAdd(0)
+}
+
+//-------------------------------------------FIN DE RENDERIZADO DE ELEMENTOS ----------------------------------//
+
+
+//----------------------------------------------FUNCIONES DEL CARRITO------------------------------------------//
+const cartIconBtn = document.querySelector('.header__cart');
+const cartModal = document.querySelector('.cart-modal');
+const productContainer = document.querySelector('.cart-modal__chekout-container');
 const addToCartBtn = document.querySelector('.details__button');
 let cartNotification = document.querySelector('.header__cart--notification');
 let lastValue = parseInt(cartNotification.innerText);
 
-addToCartBtn.addEventListener('click', ()=>{ 
-    lastValue = lastValue + userInputNumber;
-    
-    cartNotification.innerText = lastValue;
-    cartNotification.style.display = 'block';
-    cart =  productos;
-        saveLocalStorage(cart)
-        drawProductInModal(cart);
-        drawProductInModal(cart);
-    
-});
 
-//Mostrar el modal con el detalle del carrito
-const cartIconBtn = document.querySelector('.header__cart');
-const cartModal = document.querySelector('.cart-modal');
-const productContainer = document.querySelector('.cart-modal__chekout-container');
+const renderCreateHTMLCart = array =>{
+    message__modal.innerHTML= ''
+    cartModal.innerHTML += createHTMLCart(array)
+ 
+}
 
-cartIconBtn.addEventListener('click', ()=>{
-    cartModal.classList.toggle('show');
+const createHTMLCart = datos => {
 
-    if(lastValue === 0){
-        productContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
-    }else{
-        cart = productos;
-        saveLocalStorage(cart)
-        drawProductInModal(cart);
+    const {img, name,color,price} = datos;
+    let totalPrice = price * lastValue;
+    message__modal.innerHTML=''
+    return`
+    <p class="cart-modal__title">Cart</p>
+      <div class="cart-modal__chekout-container">
+        <div class="cart-modal__details-container">
+          <img class="cart-modal__image" src="${img}" alt="">
+          <div>
+            <p class="cart-modal__product">${name}</p>
+            <p class="cart-modal__price">$${price} x${lastValue}  <span><b>$${totalPrice}</b></span> </p>
+            <p>Color: ${color}</p>
+          </div>
+          <img class="cart-modal__delete" src="./images/icon-delete.svg" alt="delete">
+        </div>
+        <button class="cart-modal__chekount" >Checkout</button>
+      </div>
+    `
+}
+
+
+//mostrar carrito
+const verificarCarrito = () => {
+    if(lastValue===0){
+        return '<p class="cart-empty">Your cart is empty</p>'
+    } else{
+        return '<p class="cart-empty" style="display: none;"></p>'
     }
-    
-});
+}
+const showCart = () => {
+    cartModal.classList.toggle('show');
+    if(lastValue===0){
+        message__modal.innerHTML = '<p class="cart-empty">Your cart is empty</p>'
+    }
+}
+
+const productData = (e) => {
+    const {img,name,price,color} = e.target.dataset;
+    const product = {img,name,price,color}
+    return product;
+ }
+
+
+
+ const addToCart = e => {
+    if(!e.target.classList.contains('details__button')) return;
+      
+    cartNotification.innerText = quantity++;
+    cartNotification.style.display = 'block';
+    message__modal.style.display = 'none'
+
+    if(lastValue==lastValue){
+        lastValue=userInput.value;
+        renderCreateHTMLCart(productData(e))
+        return;
+    } else {
+        saveLocalStorage(productData(e))
+    }
+   
+}
 
 //Borrar el contenido del carrito
 function deleteProduct(){
     const deleteProductBtn = document.querySelector('.cart-modal__delete');
     deleteProductBtn.addEventListener('click', ()=>{
-        productContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
+        cartModal.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
         lastValue = 0;
         cartNotification.innerText = lastValue;
     });
 }
 
-// Cambiar imagenes cuando se presione los botones flecha.
-const imageContainer = document.querySelector('.gallery__image-container');
-const previusGalleryBtn = document.querySelector('.gallery__previus');
-imageContainer.style.backgroundImage = `url('../images/zapa1.jpg')`
-const nextGalleryBtn = document.querySelector('.gallery__next');
-let imgIndex = 1;
+//----------------------------------------------FIN DE FUNCIONES DE CARRITO ---------------------------------------//
 
-nextGalleryBtn.addEventListener('click', ()=>{
-    changeNextImage(imageContainer);
-});
 
-previusGalleryBtn.addEventListener('click', ()=>{
-    changePreviusImage(imageContainer);
-});
+//--------------------------------------------------FUNCIONES DE IMAGENES------------------------------------------//
 
-//Cambiar las imagenes principales desde los zapatillaAdidas
-let zapatillaAdidas = document.querySelectorAll('.gallery__nmd_r1')
-zapatillaAdidas = [...zapatillaAdidas]
+//cambiar imagenes segun color
+const selectColor = e => {
+    const valueColor = e.target.dataset.colors;
+   return valueColor.toString();
+}
+//cambiar imagene principal y miniaturas, agregar datos a btnAddtoCart.
+const cambiarImagenes = (e) => {
+  switch (selectColor(e)){
+    case 'black':
+        imageContainer.style.backgroundImage = `url('../images/zapa1.jpg')`
+        renderCreateHTMLImg(productos[0].img[0]);
+        btnAddCart.innerHTML = btnAdd(0)
+        break;
+    case 'white':   
+        imageContainer.style.backgroundImage = `url('../images/zapa4.jpg')`
+        renderCreateHTMLImg(productos[0].img[1])
+        btnAddCart.innerHTML = btnAdd(1)
+        break;
+    case 'gray':
+        imageContainer.style.backgroundImage = `url('../images/zapa7.jpg')`
+        renderCreateHTMLImg(productos[0].img[2])
+        btnAddCart.innerHTML = btnAdd(2)
+        break;
+        default:
+    return;
+}
+}
 
-zapatillaAdidas.forEach(adidas => {
-    adidas.addEventListener('click', event=>{
-        imageContainer.style.backgroundImage = `url('../images/zapa${event.target.id}.jpg')`
-    });
-});
+//Cambiar las imagenes principales clickeando miniaturas
+const changeImgFront = e => {
+    if(!e.target.classList.contains('gallery__nmd_r1')) return;
 
-//Cambiar las imagenes principales desde los zapatillaAdidas en el MODAL
-let modalzapatillaAdidas = document.querySelectorAll('.modal-gallery__nmd_r1');
-const modalImageContainer = document.querySelector('.modal-gallery__image-container')
-modalzapatillaAdidas = [...modalzapatillaAdidas]
+    //este valor sale consoleando "e", se cambia la ruta de la imagen.
+    const valueImg = e.srcElement.attributes[2].value;
+    imageContainer.style.backgroundImage = `url('${valueImg}')`
+}
 
-modalzapatillaAdidas.forEach(modaladidas => {
-    modaladidas.addEventListener('click', event=>{
-        modalImageContainer.style.backgroundImage = `url('../images/zapa${event.target.id.slice(-1)}.jpg')`
-    });
-});
+//crear imagenes miniatura
+const createHTMLImg = img => `<img id=${count++} class="gallery__nmd_r1" src="${img}" alt="Adidas NMD_R1">`
 
-// Cambiar imagen principal de modal desde flechas en el modal
-const previusModalBtn = document.querySelector('.modal-gallery__previus');
-const nextModalBtn = document.querySelector('.modal-gallery__next');
 
-nextModalBtn.addEventListener('click', ()=>{
-    changeNextImage(modalImageContainer);
-});
+const renderCreateHTMLImg = array => galeryImg.innerHTML = array.map(imagen => createHTMLImg(imagen)).join('')
 
-previusModalBtn.addEventListener('click', ()=>{
-    changePreviusImage(modalImageContainer);
-});
 
+//------------------------------------------------FIN FUNCIONES DE IMAGENES----------------------------------------//
+   
+
+//---------------------------------------------------MENU HAMBURGUESA----------------------------------------------//
 // Mostrar el navbar cuando presiono el menu de hamburgesa
 const hamburgerMenu = document.querySelector('.header__menu');
 const modalNavbar = document.querySelector('.modal-navbar__background');
@@ -165,51 +265,23 @@ const closeModalNavbar = document.querySelector('.modal-navbar__close-icon');
 
 modalNavbar.style.display = 'none'
 
-hamburgerMenu.addEventListener('click', ()=>{
-    modalNavbar.style.display = 'block';
-});
+hamburgerMenu.addEventListener('click', ()=> modalNavbar.style.display = 'block')
 
-closeModalNavbar.addEventListener('click', ()=>{
-    modalNavbar.style.display = 'none';
-});
 
+closeModalNavbar.addEventListener('click', ()=> modalNavbar.style.display = 'none');
+
+//------------------------------------------------FIN MENU HAMBURGUESA-----------------------------------------//
 
 
 
-
-// FUNCIONES
-
-function drawProductInModal(array){
-    const {name, img, price} = array[0];
-    productContainer.innerHTML = `
-        <div class="cart-modal__details-container">
-            <img class="cart-modal__image" src="${img}" alt="">
-            <div>
-            <p class="cart-modal__product">${name}</p>
-            <p class="cart-modal__price">$${price}</span></p>
-            </div>
-            <img class="cart-modal__delete" src="./images/icon-delete.svg" alt="delete">
-        </div>
-        <button class="cart-modal__chekount" >Checkout</button>`
-    deleteProduct()
-    let priceModal = document.querySelector('.cart-modal__price');
-    priceModal.innerHTML = `$${price} x${lastValue} <span>$${lastValue*price}.00</span>`;
+const init = ()=> {
+    renderCreateHTMLPrices(productos)
+    createHTMLButtonColor(productos)
+    buttons__colors.addEventListener('click', cambiarImagenes)
+    document.addEventListener('click', changeImgFront)
+    document.addEventListener('click', addToCart)
+    cartIconBtn.addEventListener('click', showCart)
+    renderOnLoad();
 }
 
-function changeNextImage(imgContainer){
-    if(imgIndex === 3){
-        imgIndex = 1;
-    }else{
-        imgIndex++;
-    }
-    imgContainer.style.backgroundImage = `url('../images/zapa${imgIndex}.jpg')`
-}
-
-function changePreviusImage(imgContainer){
-    if(imgIndex === 1){
-        imgIndex = 3;
-    }else{
-        imgIndex--;
-    }
-    imgContainer.style.backgroundImage = `url('../images/zapa${imgIndex}.jpg')`
-}
+init()
