@@ -9,6 +9,7 @@ const btnAddCart = document.querySelector('.btnAddCart')
 const imageContainer = document.querySelector('.gallery__image-container');
 const message__modal = document.querySelector('.message__modal')
 const cart__empty = document.querySelector('.cart-empty')
+const cart__modal = document.querySelector('.cart-modal')
 
 
 //--------------------------------------------------------DATOS-----------------------------------------------------//
@@ -25,9 +26,15 @@ let productos = [{
     img: [[["../images/zapa1.jpg"],["../images/zapa2.jpg"],["../images/zapa3.jpg"]],[["../images/zapa4.jpg"],["../images/zapa5.jpg"],["../images/zapa6.jpg"]],[["../images/zapa7.jpg"],["../images/zapa8.jpg"],["../images/zapa9.jpg"]]]
 }]
 
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let cart = [];
+let cart2 = JSON.parse(localStorage.getItem('productos')) || [];
 
-const saveLocalStorage = array => localStorage.setItem('productos', JSON.stringify(array))
+const saveLocalStorage = (xx) => {localStorage.setItem('productos', JSON.stringify(xx))}
+
+// const getLocalStorage = () =>{
+//     cart2 = JSON.parse(localStorage.getItem('productos'));
+// }
+
 
 
 //----------------------------------------------------------FIN DE DATOS ----------------------------------------/
@@ -89,8 +96,8 @@ document.addEventListener('click', (e) => {
         userInput.value = 0;
         userInputNumber = 0;
     },2500)
-
-   
+    localStorage.removeItem("productos")
+   cart2 = []
 })
 
 plusBtn.addEventListener('click', ()=>{
@@ -126,32 +133,33 @@ let cartNotification = document.querySelector('.header__cart--notification');
 let lastValue = parseInt(cartNotification.innerText);
 
 
-const renderCreateHTMLCart = array =>{
+const renderCreateHTMLCart = () =>{
     message__modal.innerHTML= ''
-    cartModal.innerHTML += createHTMLCart(array)
- 
+    cartModal.innerHTML= ""
+     cartModal.innerHTML += createHTMLCart(JSON.parse(localStorage.getItem('productos')))
+     cartModal.innerHTML += `<button class="cart-modal__chekount" >Checkout</button>`
 }
 
-const createHTMLCart = datos => {
-
-    const {img, name,color,price} = datos;
-    let totalPrice = price * lastValue;
-    message__modal.innerHTML=''
+const createHTMLCart = (allProds) => {
+    if(!allProds) return;
+ return allProds.map(prod => {
+    const {img, name,color,price, quantity} = prod
+    let totalPrice = price * quantity
     return`
-    <p class="cart-modal__title">Cart</p>
       <div class="cart-modal__chekout-container">
         <div class="cart-modal__details-container">
           <img class="cart-modal__image" src="${img}" alt="">
           <div>
             <p class="cart-modal__product">${name}</p>
-            <p class="cart-modal__price">$${price} x${lastValue}  <span><b>$${totalPrice}</b></span> </p>
+            <p class="cart-modal__price">$${price} x${quantity}  <span><b>$${totalPrice}</b></span> </p>
             <p>Color: ${color}</p>
           </div>
-          <img class="cart-modal__delete" src="./images/icon-delete.svg" alt="delete">
+          <img id=${color} class="cart-modal__delete" src="./images/icon-delete.svg" alt="delete">
         </div>
-        <button class="cart-modal__chekount" >Checkout</button>
       </div>
     `
+}
+)
 }
 
 
@@ -172,38 +180,59 @@ const showCart = () => {
 
 const productData = (e) => {
     const {img,name,price,color} = e.target.dataset;
-    const product = {img,name,price,color}
+    const product = {img,name,price,color, quantity:userInputNumber}
     return product;
  }
 
 
 
- const addToCart = e => {
+const addToCart = (e) => {
     if(!e.target.classList.contains('details__button')) return;
-      
-    cartNotification.innerText = quantity++;
-    cartNotification.style.display = 'block';
-    message__modal.style.display = 'none'
+    const product = productData(e)
 
-    if(lastValue==lastValue){
-        lastValue=userInput.value;
-        renderCreateHTMLCart(productData(e))
-        return;
-    } else {
-        saveLocalStorage(productData(e))
-    }
-   
+    const existItem = cart2.find((X) => X.color === product.color)
+        
+    const newItems = existItem
+          ? cart2.map((item) =>
+              item.color === existItem.color ? {...existItem, quantity: existItem.quantity + product.quantity} : item
+            )
+          : [...cart2, product];
+    
+    saveLocalStorage(newItems)
+    cart2 = JSON.parse(localStorage.getItem('productos'))
+    renderCreateHTMLCart()
 }
+
+
+
 
 //Borrar el contenido del carrito
-function deleteProduct(){
-    const deleteProductBtn = document.querySelector('.cart-modal__delete');
-    deleteProductBtn.addEventListener('click', ()=>{
-        cartModal.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
-        lastValue = 0;
-        cartNotification.innerText = lastValue;
-    });
-}
+
+    const deleteItem = (e) => {
+        if(!e.target.classList.contains('cart-modal__delete')) return;
+            const id = e.target.id
+            const newCart = cart2.filter((X) => X.color !== id)
+            saveLocalStorage(newCart)
+            cart2 = JSON.parse(localStorage.getItem('productos'))
+            renderCreateHTMLCart() 
+    }
+
+
+//Total de productos
+    const getTotal = () => {
+        if (cart2.length > 0) {
+            
+          return  cart2.reduce((acc, prod) => {
+                return prod.quantity + acc
+            },0)
+        }
+    }
+    
+   console.log(getTotal())
+        
+    
+    
+
 
 //----------------------------------------------FIN DE FUNCIONES DE CARRITO ---------------------------------------//
 
@@ -275,6 +304,8 @@ closeModalNavbar.addEventListener('click', ()=> modalNavbar.style.display = 'non
 
 
 const init = ()=> {
+   
+    renderCreateHTMLCart()
     renderCreateHTMLPrices(productos)
     createHTMLButtonColor(productos)
     buttons__colors.addEventListener('click', cambiarImagenes)
@@ -282,6 +313,8 @@ const init = ()=> {
     document.addEventListener('click', addToCart)
     cartIconBtn.addEventListener('click', showCart)
     renderOnLoad();
+    cart__modal.addEventListener('click',deleteItem)
+    
 }
 
 init()
