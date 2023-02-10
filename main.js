@@ -221,7 +221,7 @@ const products = document.querySelector('.products')
 let showAllProductsHtml = (array) =>{
     return`
     <li class="cardProduct">
-    <img class="img-card-product" src=${array.image} />
+    <img class="img-card-product" data-id=${array.id} src=${array.image} />
     <h4>${array.name}</h4>
     <p>$${array.price}</p>
 </div>
@@ -236,12 +236,110 @@ const renderAllProductsHtml = (array) =>{
 // ------------------------------TERMINA RENDERIZADO PRODUCTOS------------------
 
 // --------------------------------CARD SHOP--------------------------------------
+const cardShop = document.querySelector('.card_shop')
+
+const closeCardShop = (e) =>{
+    if(!e.target.classList.contains('fa-xmark'))return;
+    cardShop.style.display='none'
 
 
+}
+
+const createHTMLcardShop = (array) => { 
+    return `
+    <img src="${array.image}" alt="" />
+    <i class="fa-sharp fa-solid fa-xmark"></i>
+    <div class="infoCard_shop">
+      <h4>${array.name}</h4>
+      <p>
+        ${array.info}
+      </p>
+      <form class="quantity_container">
+        <label for="select">Quantity</label>
+        <select name="select" class="select_quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <button class="addToCart" 
+        data-id=${array.id}
+        data-name=${array.name}
+        data-categories=${array.categories}
+        data-image=${array.image}
+        data-price=${array.price}>ADD TO CART</button>
+      </form>
+    </div>`
+}
+
+const renderCreateHTMLcardShop = (array) => {
+    cardShop.style.display='flex'
+    cardShop.innerHTML = array.map(product => createHTMLcardShop(product))
+}
+
+const searchProductShop = (e) => {
+    if(!e.target.classList.contains('img-card-product')) return;
+    const productID = e.target.dataset.id
+   
+    const foundProduct = allProducts.filter(product => product.id === Number(productID))
+
+    renderCreateHTMLcardShop(foundProduct)
+    window.scroll(0,0)
+}
 
 
+document.addEventListener('click', searchProductShop)
+document.addEventListener('click', closeCardShop)
 
 // -----------------------------------TERMINA CARD SHOP---------------------------
+
+
+//-------------------------------------   CARRITO  ------------------------------------//
+
+let cart = [];
+
+const targetProduct = (e) => {
+    const {name,id,image,categories,price} = e.target.dataset;
+    const product = {name,id,image,categories,price}
+    return product;
+}
+
+const isExistProduct = (array) => {
+    return cart.find(product => product.id == array.id)
+}
+
+const addUnitProduct = array => {
+    cart = cart.map(cartProduct => {
+        return cartProduct.id === array.id
+         ? { ... cartProduct, quantity: cartProduct.quantity+1} 
+        : cartProduct;
+    })
+}
+
+
+const addToCart = (e) => {
+    if(!e.target.classList.contains('addToCart')) return;
+
+    if(isExistProduct(targetProduct(e))){
+        addUnitProduct(targetProduct(e))
+    } else {
+        cart = [... cart, {...targetProduct(e),quantity:1}]
+    }
+  
+}
+
+document.addEventListener('click', addToCart)
+
+
+//----------------------------------TERMINA CARRITO -------------------------------------//
+
+
 
 
 // ---------------------------------FILTER----------------------------------

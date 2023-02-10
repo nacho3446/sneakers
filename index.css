@@ -287,9 +287,7 @@ a{
         margin-left: 1rem;
         cursor: pointer;
     }
-    .arrow-down-icon{
-        width: 20px;
-    }
+    
     .fa-solid.fa-bars, .fa-solid.fa-x{
         display: none;
     }
@@ -320,22 +318,18 @@ a{
         position: absolute;
         top: 70px;
         left: 15px;
-
-
-
-
         width: 320px;
         height: 250px;
         display: flex;
         align-items: center;
         letter-spacing: 1px;
-    
         background: rgba(255, 255, 255, 0.30);
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         backdrop-filter: blur(4px);
         border: 1px solid rgb(255, 255, 255, 0.18);
         border-radius: 1rem;
         padding: 8px;
+        z-index: 1000;;
     }
     .subMenu_link{
         display: flex;
@@ -395,15 +389,14 @@ a{
     margin: 0 auto;
     height: 400px;
     position: relative;
-    display: flex;
+    display: none;
     margin-top: 2rem;
-
     background: rgba(255, 255, 255, 0.30);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(4px);
     border: 1px solid rgb(255, 255, 255, 0.18);
     border-radius: 1rem;
-    padding: 8px;
+    padding: 8px;  
 }
 .infoCard_shop{
     display: flex;
@@ -414,6 +407,10 @@ a{
     text-align: center;
     width: 400px;
     letter-spacing: 1px;
+  
+}
+.infoCard_shop p{
+    font-weight: 800;
 }
 .infoCard_shop h4{
     margin: 2.5rem 0 3rem 0;
@@ -441,9 +438,13 @@ a{
 .select_quantity{
     height: 40px;
 }
-
-
-
+.fa-sharp.fa-solid.fa-xmark{
+    position: absolute;
+    right: 30px;
+    top:20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
 
 
 /* ------------------------------------TERMINA CARD SHOP----------------------------- */
