@@ -148,20 +148,19 @@ let allProducts = [
 
 // ---------------------------MENU TOGGLE------------------------------------
 const listItems = document.querySelector('.nav_list_menu');
+const list = document.querySelector('.list')
 const barsMenu = document.querySelector('.fa-bars')
 const xMenu = document.querySelector('.fa-x')
-const subMenu = document.querySelector('.subMenu')
-const containerSubmenu = document.querySelector('.container')
 
 
-const body = document.getElementById('body')
+const body = document.querySelector('#body')
 
 const openMenu = (e) =>{
     if(!e.target.classList.contains('fa-bars')) return;
     listItems.style.display = 'flex'
     barsMenu.style.display= 'none'
     xMenu.style.display = 'block'
-    body.style.overflow='hidden'
+    body.style.overflowY= 'hidden'
 }
 
 const closeMenu = (e) =>{
@@ -169,25 +168,49 @@ const closeMenu = (e) =>{
     listItems.style.display = 'none'
     barsMenu.style.display = 'block'
     xMenu.style.display = 'none'
-    body.style.overflow='block'
+    body.style.overflowY= 'visible'
+    
 }
-
-
 // ---------------------------TERMINA MENU TOGGLE----------------------------
 
+// --------------------------------SUBMENU--------------------------------------
+
+
+const subMenu = document.querySelector('.subMenu')
+
+const showSubMenu = (e) =>{
+    if(e.target.classList.contains('container')){
+        subMenu.style.display='block'
+    }else{
+        return
+    }
+}
+
+const hiddenSubMenu = (e) => {
+    if(e.target.classList.contains('container')) return;
+    subMenu.style.display = 'none'
+
+ }
+
+
+ document.addEventListener('click', showSubMenu)
+ document.addEventListener('click', hiddenSubMenu)
+//  ----------------------------TERMINA SUBMENU----------------------------------
 
 // --------------------------------RENDERIZADO PRODUCTOS----------------------------------
 const products = document.querySelector('.products')
 
 
 
-
 let showAllProductsHtml = (array) =>{
     return`
     <li class="cardProduct">
-    <img src=${array.image}>
+    <img class="img-card-product" src=${array.image} />
     <h4>${array.name}</h4>
     <p>$${array.price}</p>
+    <div class="card_shop" id='asd'>
+    <p>asdsad</p>
+</div>
 </li>
     `
 }
@@ -195,6 +218,52 @@ let showAllProductsHtml = (array) =>{
 const renderAllProductsHtml = (array) =>{
     products.innerHTML = array.map(product => showAllProductsHtml(product)).join('')
 }
+ 
+// ------------------------------TERMINA RENDERIZADO PRODUCTOS------------------
+
+// --------------------------------CARD SHOP--------------------------------------
+const card_shop = document.getElementById('asd')
+
+const showCardProduct = (e) =>{
+    if (!e.target.classList.contains('img-card-product'))return
+
+    card_shop.style.display = 'block'
+}
+
+
+
+
+
+
+
+document.addEventListener('click', showCardProduct)
+
+
+// -----------------------------------TERMINA CARD SHOP---------------------------
+
+
+// ---------------------------------FILTER----------------------------------
+const title_category = document.querySelector('.title-category')
+
+
+
+const filterCategory = (e) =>{
+if (!e.target.classList.contains('subMenu_link'))return
+
+const valueCategory = e.target.dataset.category
+
+let filtredProducts = allProducts.filter(categories => categories.categories === valueCategory)
+renderAllProductsHtml(filtredProducts)
+
+let titleCategory = allProducts.find(categories => categories.categories === valueCategory)
+title_category.innerHTML = titleCategory.categories[0].toUpperCase()+titleCategory.categories.substring(1)
+}
+
+
+
+
+document.addEventListener('click', filterCategory)
+// ---------------------------------TERMINA FILTER------------------------
 
 
 
@@ -203,9 +272,7 @@ const init = () =>{
     renderAllProductsHtml(allProducts)
     document.addEventListener('click', openMenu)
     document.addEventListener('click', closeMenu)
-    containerSubmenu.addEventListener('click', () => {
-        subMenu.classList.toggle('visible');
-      });
+    ;
 }
 init();
 
