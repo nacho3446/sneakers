@@ -37,14 +37,14 @@
     flex-direction: column;
     position: absolute;
     top: 60px;
-    background-color: greenyellow;
+    background-color: #131415;
+    color: white;
+    z-index: 1000;
     /* overflow-block: none; */
-
 }
 
 .nav_items_menu{
     padding: 20px 0;
-    text-decoration: underline 1px solid black;
     cursor: pointer;
 }
 .fa-solid.fa-x{
@@ -149,10 +149,7 @@
     position: absolute;
     top:0;
     z-index: 1000;
-
     width: 80%;
-
-
     display: none;
 
 
@@ -394,15 +391,12 @@ a{
 /* ----------------------------------CARD SHOP--------------------------------- */
 
 .card_shop{
+    width: 70%;
+    margin: 0 auto;
+    height: 400px;
     position: relative;
-    width: 350px;
-    height: 300px;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    letter-spacing: 1px;
+    display: flex;
+    margin-top: 2rem;
 
     background: rgba(255, 255, 255, 0.30);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -411,13 +405,42 @@ a{
     border-radius: 1rem;
     padding: 8px;
 }
+.infoCard_shop{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+    width: 400px;
+    letter-spacing: 1px;
+}
+.infoCard_shop h4{
+    margin: 2.5rem 0 3rem 0;
+    font-size: 25px;
+    font-weight: 700;
+}
+.card_shop img{
+    width: auto;
+    height: 100%;
+}
 
+.addToCart{
+    margin: 0 auto;
+    margin-top: 3rem;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    background-color: #131415;
+    color: white;
+}
 
-
-
-
-
-
+.quantitty_container{
+    display: flex;
+}
+.select_quantity{
+    height: 40px;
+}
 
 
 

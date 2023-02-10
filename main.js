@@ -5,6 +5,7 @@ let allProducts = [
         price: 112,
         image: '/images/hood1.jpg',
         categories: 'hoodies',
+        info: 'Meet the "Cosmic Love Pullover Hood" sweatshirt. A stylish combination of comfort and design. Inspired by the universe, this hoodie is one-of-a-kind. Ideal for cold days and a fantastic gift. Get your Cosmic Love Pullover Hood now!',
     },
 
     {
@@ -13,6 +14,7 @@ let allProducts = [
         price: 115,
         image: '/images/hood2.jpg',
         categories: 'hoodies',
+        info:'Introducing the "Stargaze Pullover Hood" sweatshirt. A cozy and stylish hoodie featuring a stunning night sky design. Perfect for chilly days and for all star-gazing enthusiasts. Get your Stargaze Pullover Hood today!',
     },
 
     {
@@ -21,6 +23,7 @@ let allProducts = [
         price: 115,
         image: '/images/hood3.jpg',
         categories: 'hoodies',
+        info:'Check out the "Stomped Pullover Hood" sweatshirt. A bold and comfortable hoodie with a unique tread design. Perfect for making a statement on any casual occasion. Get your Stomped Pullover Hood today!',
     },
 
     {
@@ -29,6 +32,7 @@ let allProducts = [
         price: 120,
         image: '/images/hood4.jpg',
         categories: 'hoodies',
+        info:'Meet the "Wavy Dog Zip Hood" sweatshirt. A fun and cozy hoodie featuring a wavy dog design. Perfect for casual wear and for all dog lovers. Get your Wavy Dog Zip Hood today!',
     },
 
 
@@ -43,6 +47,7 @@ let allProducts = [
         price: 140,
         image: '/images/jacket1.jpg',
         categories: 'jackets',
+        info:'Introducing the "Wavy Amber Puffer". A warm and stylish puffer jacket with a unique wavy pattern. Perfect for staying warm and making a fashion statement. Get your Wavy Amber Puffer today!',
     },
 
     {
@@ -51,6 +56,7 @@ let allProducts = [
         price: 132,
         image: '/images/jacket2.jpg',
         categories: 'jackets',
+        info:'Check out the "Icon Coach Jacket". A classic and stylish coach jacket featuring iconic emblem designs. Perfect for casual wear or as a fashionable layering piece. Get your Icon Coach Jacket today!',
     },
 
     {
@@ -59,6 +65,7 @@ let allProducts = [
         price: 128,
         image: '/images/jacket3.jpg',
         categories: 'jackets',
+        info:'Introducing the "Icon Bomber Jacket". A stylish and versatile bomber jacket featuring iconic emblem designs. Perfect for casual wear or as a fashionable layering piece. Get your Icon Bomber Jacket today!',
     },
 
     {
@@ -67,6 +74,7 @@ let allProducts = [
         price: 128,
         image: '/images/jacket4.jpg',
         categories: 'jackets',
+        info:'Meet the "Order Jacket". A sleek and stylish jacket with a clean and modern design. Perfect for creating a sharp and sophisticated look. Get your Order Jacket today!',
     },
     
     
@@ -81,6 +89,7 @@ let allProducts = [
         price: 54,
         image: '/images/tshirt1.jpg',
         categories: 't-shirts',
+        info:'Introducing the "Eyes Tie Dye Choice T-Shirt". A fun and trendy t-shirt featuring a bold tie-dye pattern with eye designs. Perfect for making a statement and expressing your personal style. Get your Eyes Tie Dye Choice T-Shirt today!',
     },
 
     {
@@ -89,6 +98,7 @@ let allProducts = [
         price: 57,
         image: '/images/tshirt2.jpg',
         categories: 't-shirts',
+        info:'Check out the "Established Works Eyes LS T-Shirt". A stylish and comfortable long-sleeve t-shirt featuring eye designs and an "Established Works" tagline. Perfect for casual wear and making a statement. Get your Established Works Eyes LS T-Shirt today!',
     },
 
     {
@@ -97,6 +107,7 @@ let allProducts = [
         price: 51,
         image: '/images/tshirt3.jpg',
         categories: 't-shirts',
+        info:'Introducing the "Established Works Eyes T-Shirt". A casual and comfortable t-shirt featuring eye designs and an "Established Works" tagline. Perfect for everyday wear and making a statement. Get your Established Works Eyes T-Shirt today!',
     },
 
     {
@@ -105,6 +116,7 @@ let allProducts = [
         price: 51,
         image: '/images/tshirt4.jpg',
         categories: 't-shirts',
+        info:'Introducing the "Fubar Pleated Denim". A fashionable and comfortable pair of denim pants featuring pleated detailing and a "Fubar" tagline. Perfect for casual wear and making a statement. Get your Fubar Pleated Denim today!',
     },
 
 
@@ -119,6 +131,7 @@ let allProducts = [
         price: 72,
         image: '/images/pants1.jpg',
         categories: 'pants',
+        info:'Meet the "Worm Cropped Chloe Fitted T-Shirt". A stylish and form-fitting t-shirt featuring a worm design. Perfect for making a bold fashion statement and showing off your personal style. Get your Worm Cropped Chloe Fitted T-Shirt today!',
     },
 
     {
@@ -127,6 +140,7 @@ let allProducts = [
         price: 68,
         image: '/images/pants2.jpg',
         categories: 'pants',
+        info:'Check out the "Estate Pant". A stylish and versatile pair of pants with a clean and modern design. Perfect for creating a sharp and sophisticated look. Get your Estate Pant today!',
     },
 
     {
@@ -135,6 +149,7 @@ let allProducts = [
         price: 68,
         image: '/images/pants3.jpg',
         categories: 'pants',
+        info:'Introducing the "Leah Baggy Denim". A comfortable and fashionable pair of baggy denim pants featuring a unique design. Perfect for casual wear and making a statement. Get your Leah Baggy Denim today!'
     },
 
     {
@@ -143,6 +158,7 @@ let allProducts = [
         price: 70,
         image: '/images/pants4.jpg',
         categories: 'pants',
+        info:'Meet the "Straggler Flooded Pant". A stylish and comfortable pair of pants featuring a flooded design. Perfect for casual wear and making a bold fashion statement. Get your Straggler Flooded Pant today!'
     },
 ]
 
@@ -208,8 +224,6 @@ let showAllProductsHtml = (array) =>{
     <img class="img-card-product" src=${array.image} />
     <h4>${array.name}</h4>
     <p>$${array.price}</p>
-    <div class="card_shop" id='asd'>
-    <p>asdsad</p>
 </div>
 </li>
     `
@@ -222,21 +236,9 @@ const renderAllProductsHtml = (array) =>{
 // ------------------------------TERMINA RENDERIZADO PRODUCTOS------------------
 
 // --------------------------------CARD SHOP--------------------------------------
-const card_shop = document.getElementById('asd')
-
-const showCardProduct = (e) =>{
-    if (!e.target.classList.contains('img-card-product'))return
-
-    card_shop.style.display = 'block'
-}
 
 
 
-
-
-
-
-document.addEventListener('click', showCardProduct)
 
 
 // -----------------------------------TERMINA CARD SHOP---------------------------
