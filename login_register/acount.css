@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa&family=Cinzel&family=EB+Garamond&family=Edu+SA+Beginner&family=Hind+Vadodara:wght@300;400&family=Koulen&family=Lobster&family=Montserrat:ital@1&family=Mouse+Memoirs&family=Nanum+Gothic&family=Noto+Sans&family=Oleo+Script+Swash+Caps&family=Open+Sans:wght@400;600&family=Orbitron:wght@400;500&family=PT+Sans+Narrow&family=Playfair+Display:ital@0;1&family=Poiret+One&family=Press+Start+2P&family=Prompt&family=Rajdhani:wght@300&family=Raleway:wght@100;200&family=Roboto&family=Splash&family=Ubuntu:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa&family=Cinzel&family=EB+Garamond&family=Edu+SA+Beginner&family=Hind+Vadodara:wght@300;400&family=Koulen&family=Lobster&family=Mouse+Memoirs&family=Nanum+Gothic&family=Noto+Sans&family=Oleo+Script+Swash+Caps&family=Open+Sans:wght@400;600&family=Orbitron:wght@400;500&family=PT+Sans+Narrow&family=Playfair+Display:ital@0;1&family=Poiret+One&family=Press+Start+2P&family=Prompt&family=Rajdhani:wght@300&family=Raleway:wght@100;200&family=Roboto&family=Splash&family=Ubuntu:wght@300&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header{
+    margin-bottom: 3rem;
+}
+p{
+    font-family: Montserrat;
+    font-weight: 600;
+    font-size: 22px;
+}
+input{
+    width: 350px;
+    height: 40px;
+    border: 2px solid black;
+    margin: 15px 0;
+    font-size: 12px;
+    padding-left: 1rem;
+}
+a{
+    margin-top: 2rem;
+    font-family: Montserrat;
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+}
+button{
+    margin-top: 1.5rem;
+    width: 80px;
+    height: 40px;
+    background-color: black;
+    color: white;
+}
+
+@media (max-width:768px){
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .login_container{
+        display: flex;
+        flex-direction: column;
+    }
+    .register_container{
+        margin-top: 4.5rem;
+        display: flex;
+        flex-direction: column;
+        
+    }
+}
+
+@media (min-width:769px){
+    .container{
+        display: flex;
+        justify-content: center;
+        width: auto;
+        gap: 50px;
+    }
+    .login_container{
+        display: flex;
+        flex-direction: column;
+    }
+    .register_container{
+        display: flex;
+        flex-direction: column;
+
+    }
+}

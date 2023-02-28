@@ -1,0 +1,830 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa&family=Cinzel&family=EB+Garamond&family=Edu+SA+Beginner&family=Hind+Vadodara:wght@300;400&family=Koulen&family=Lobster&family=Montserrat:ital@1&family=Mouse+Memoirs&family=Nanum+Gothic&family=Noto+Sans&family=Oleo+Script+Swash+Caps&family=Open+Sans:wght@400;600&family=Orbitron:wght@400;500&family=PT+Sans+Narrow&family=Playfair+Display:ital@0;1&family=Poiret+One&family=Press+Start+2P&family=Prompt&family=Rajdhani:wght@300&family=Raleway:wght@100;200&family=Roboto&family=Splash&family=Ubuntu:wght@300&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Changa&family=Cinzel&family=EB+Garamond&family=Edu+SA+Beginner&family=Hind+Vadodara:wght@300;400&family=Koulen&family=Lobster&family=Mouse+Memoirs&family=Nanum+Gothic&family=Noto+Sans&family=Oleo+Script+Swash+Caps&family=Open+Sans:wght@400;600&family=Orbitron:wght@400;500&family=PT+Sans+Narrow&family=Playfair+Display:ital@0;1&family=Poiret+One&family=Press+Start+2P&family=Prompt&family=Rajdhani:wght@300&family=Raleway:wght@100;200&family=Splash&family=Ubuntu:wght@300&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+}
+
+@media(max-width: 1023px){
+
+/* -------------------------------HEADER---------------------------- */
+    header{
+        width: 100%;
+        height: 80px;
+        display: flex;
+        padding: 0px 15px;
+        margin-bottom: 3rem;
+        border-bottom: 1px solid black;
+    }
+.navbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav_list_menu{
+    width: 100%;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    background-color: #131415;
+    color: white;
+    z-index: 1010;
+    user-select: none;
+    /* overflow-block: none; */
+}
+
+.nav_items_menu{
+    padding: 20px 0;
+    cursor: pointer;
+    letter-spacing: 5px;
+}
+.fa-solid.fa-x{
+    display: none;
+    cursor: pointer;
+    font-size: 22px;
+    padding-left: 10px;
+}
+.fa-solid.fa-bars{
+    position: relative;
+    font-size: 22px;
+    padding-left: 10px;
+}
+.list{
+    position: absolute;
+    width: 100%;
+    left:0;
+    top:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.subMenu{
+    display: hidden;
+    flex-direction: column;
+    position: absolute;
+}
+.subMenu_link{
+    color: white;
+    letter-spacing: 5px;
+}
+.visible{
+    display: flex;
+}
+
+.logo img{
+    width: 100px;
+}
+.loginANDcart{
+    display: flex;
+}
+.loginANDcart img{
+    width: 25px;
+}
+/* --------------------------------TERMINADO HEADER-------------------------- */
+
+
+/* --------------------------------------CART CARD ---------------------------------- */
+.cart_card{
+    height: 500px;
+    min-height: 400px;
+    width: 100%;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    margin:0 auto;
+    align-items: center;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.30);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgb(255, 255, 255, 0.18);
+    border-radius: 5px;
+    padding: 8px;
+    padding-top:10px;
+}
+.fa-circle-xmark{
+    position: absolute;
+    left:3px;
+    top:10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+.cart_list{
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+    width: 90%;
+    margin-bottom: 1rem;
+    height: 380px;
+    overflow-y: scroll;
+}
+
+.cart_list::-webkit-scrollbar {
+    display: none;
+}
+
+.cart_item{
+    position: relative;
+    display: flex;
+    width:100%;
+    height: 110px;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid rgb(222, 222, 222);
+    background-color: white;
+    border-radius: 8px;
+    padding-left:10px;
+    padding-right: 10px;
+}
+.cart_item img{
+    width: 80px;
+    border-radius: 10px;
+    padding:2px;
+}
+.buy_btn{
+    width: 100px;
+    height: 40px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.fa-solid.fa-trash{
+    position: absolute;
+    top:5px;
+    right:10px;
+    cursor: pointer;
+}
+
+.cart_price{
+    font-weight: 900;
+}
+.cart_name{
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-align: center;  
+}
+
+.btnQuantities{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+}
+.fa-solid.fa-minus,.fa-solid.fa-plus{
+    background-color: black;
+    padding:1px;
+    border-radius: 8px;
+    color:white;
+    cursor:pointer;
+}
+.buyout_message_container{
+    position: absolute;
+    height: 0px;
+    top: -15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    
+}
+.buyout_message{
+    background-color: green;
+    color:white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    height: 0;
+}
+
+.cart_icon_container{
+    position: relative;
+}
+
+.buyConfirm {
+    width: 180px;
+    background-color: green;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    font-size:1.1rem;
+    position: absolute;
+    right:0px;
+    top: 22px;
+    height: 0;
+}
+.message{
+    height: 0px;
+}
+/* --------------------------------------  TERMINA CART CARD   ---------------------------------- */
+
+
+
+
+.categories{
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 27px;
+    text-decoration: underline 1px solid black;
+}
+
+.title-category{
+    text-align: center;
+    margin-bottom: 4rem;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+
+
+
+
+/* -----------------------------------CARDS PRODUCTS---------------------------------------- */
+.products_container{
+    margin-top: 20px;
+}
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.cardProduct{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    margin-bottom: 3rem;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+.cardProduct img{
+    width: 100%;
+    border-radius: 0.5rem;
+}
+.cardProduct h4{
+    font-size: 16px;
+}
+.cardProduct p{
+    font-size: 12px;
+    text-decoration: underline 1px solid #131415;
+}
+
+
+/* --------------------------------TERMINADO CARDS PRODUCTS-------------------------------------- */
+
+
+
+/* ----------------------------------CARD SHOP--------------------------------- */
+.card_shop{
+    text-align: center;
+    width: 80%;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%, 80px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #eeeeee;
+
+    border-radius: 1rem;
+    
+}
+.card_shop img{
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+.card_name{
+    font-size: 22px;
+    font-family: sans-serif;
+    font-weight: 500;
+}
+.card_info{
+    margin-top: 1rem;
+    user-select: none;
+}
+.fa-sharp.fa-solid.fa-xmark{
+    position: absolute;
+    top:5px;
+    right:10px;
+    font-size: 25px;
+    cursor: pointer;
+}
+.quantitty_container{
+    display: flex;
+}
+.addToCart{
+    margin-top: 2rem;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    background-color: #131415;
+    color: white;
+    user-select: none;
+}
+/* ------------------------------------TERMINA CARD SHOP----------------------------- */
+
+/* ------------------------------------ABOUT US------------------------------------------------ */
+.info_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.info_card h4{
+    margin-bottom: 2rem;
+    font-weight: 800;
+}
+.info_card{
+    width: 60%;
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 1px;
+
+    background: rgba(255, 255, 255, 0.30);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgb(255, 255, 255, 0.18);
+    border-radius: 1rem;
+    padding: 8px;
+}
+/* ---------------------------TERMINADO ABOUT US----------------------- */
+
+
+
+/* -------------------------FOOTER----------------------------- */
+footer{
+    border-top: 1px solid black;
+    margin-top: 4rem;
+    height: 150px;
+}
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+    font-weight: 600;
+}
+.footer_container{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 20px;
+    gap: 20px;
+}
+.footer_container a:hover{
+    text-decoration: underline;
+}
+.footer_icons{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.footer_icons a{
+    font-size: 17px;
+    margin-bottom: 1.5rem;
+}
+.footer_icons a:hover{
+    color: rgb(200, 200, 200);
+}
+}
+
+
+/* -----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+---------------------------------------------------------------- */
+
+
+@media(min-width: 1024px){
+    /* ------------------------------HEADER----------------------------- */
+    header{
+        border-bottom: 1px solid black;
+    }
+    .menu_icons{
+        display: none;
+    }
+
+    .logo img{
+        width:100px;
+        margin-bottom: 1.5rem;
+    }
+    .navbar{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 100px;
+    }
+    .nav_list_menu{
+        display: flex;
+        gap: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 1rem;
+        cursor: pointer;
+    }
+    
+    .fa-solid.fa-bars, .fa-solid.fa-x{
+        display: none;
+    }
+    .list{
+        width: 33%;
+        padding-left: 15px;
+
+    }
+    .loginANDcart{
+        width: 33%;
+        display: flex;
+        justify-content: right;
+        padding-right: 15px;
+        gap: 10px;
+    }
+    
+    
+    .logo{
+        width: 33%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav_items_menu .container{
+        position: relative;
+    }
+    .subMenu{
+        position: absolute;
+        top: 70px;
+        left: 15px;
+        width: 320px;
+        height: 250px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 1px;
+        background: rgba(255, 255, 255, 0.30);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgb(255, 255, 255, 0.18);
+        border-radius: 1rem;
+        padding: 8px;
+        z-index: 1000;;
+    }
+    .subMenu_link{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+    }
+    .subMenu_link:hover{
+        text-decoration: underline;
+    }
+
+    .subMenu{
+        display: none;
+    }
+
+
+
+/* ------------------------------------TERMINADO HEADER---------------------- */
+
+/* --------------------------------------CART CARD ---------------------------------- */
+.cart_card{
+    height: 500px;
+    min-height: 400px;
+    width: 25%;
+    position: absolute;
+    top: 60px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.30);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgb(255, 255, 255, 0.18);
+    border-radius: 5px;
+    padding: 8px;
+    padding-top:10px;
+}
+.fa-circle-xmark{
+    position: absolute;
+    left:3px;
+    top:10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+.cart_list{
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+    margin-bottom: 1rem;
+    height: 380px;
+    overflow-y: scroll;
+}
+
+.cart_list::-webkit-scrollbar {
+    display: none;
+}
+
+.cart_item{
+    position: relative;
+    display: flex;
+    width: 330px;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid rgb(222, 222, 222);
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.buy_btn{
+    width: 100px;
+    height: 40px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.fa-solid.fa-trash{
+    position: absolute;
+    top:5px;
+    right:10px;
+    cursor: pointer;
+}
+.cart_image{
+    width: 100px;
+    border-radius: 10px;
+}
+.cart_price{
+    font-weight: 900;
+}
+.cart_name{
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.btnQuantities{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+}
+.fa-solid.fa-minus,.fa-solid.fa-plus{
+    background-color: black;
+    padding:1px;
+    border-radius: 8px;
+    color:white;
+    cursor:pointer;
+}
+.buyout_message_container{
+    position: absolute;
+    height: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    
+}
+.buyout_message{
+    background-color: green;
+    color:white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 350px;
+    height: 0;
+}
+
+/* --------------------------------------  TERMINA CART CARD   ---------------------------------- */
+
+
+
+.title-category{
+    margin: 3rem 0;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+
+/* ---------------------------------CARDS PRODUCTS------------------------------- */
+    .products{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        text-align: center;
+    }
+    .cardProduct{
+        width: 300px;
+        padding-bottom: 1.5rem;
+        cursor: pointer;
+    }
+    .cardProduct img{
+        width: 300px;
+        border-radius: 1rem;
+    }
+    .cardProduct p{
+        text-decoration: underline;
+    }
+/* ----------------------------------TERMINADO CARDS PRODUCTS------------------ */
+
+/* ----------------------------------CARD SHOP--------------------------------- */
+
+.card_shop{
+    width: 70%;
+    margin: 0 auto;
+    height: 400px;
+    position: relative;
+    display: none;
+    margin-top: 2rem;
+    background: rgba(255, 255, 255, 0.30);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgb(255, 255, 255, 0.18);
+    border-radius: 1rem;
+    padding: 8px;  
+}
+.infoCard_shop{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+    width: 400px;
+    letter-spacing: 1px;
+  
+}
+.infoCard_shop p{
+    font-weight: 800;
+}
+.infoCard_shop h4{
+    margin: 2.5rem 0 3rem 0;
+    font-size: 25px;
+    font-weight: 700;
+}
+.card_shop img{
+    width: auto;
+    height: 100%;
+}
+
+.addToCart{
+    margin: 0 auto;
+    margin-top: 3rem;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    background-color: #131415;
+    color: white;
+}
+
+.quantitty_container{
+    display: flex;
+}
+.select_quantity{
+    height: 40px;
+}
+.fa-sharp.fa-solid.fa-xmark{
+    position: absolute;
+    right: 30px;
+    top:20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+/* ------------------------------------TERMINA CARD SHOP----------------------------- */
+
+
+
+
+
+.info_container{
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+}
+.info_card{
+    width: 350px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 1px;
+
+    background: rgba(255, 255, 255, 0.30);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgb(255, 255, 255, 0.18);
+    border-radius: 1rem;
+    padding: 8px;
+}
+
+/* ---------------------TERMINADO CARD INFO----------------- */
+
+/* ---------------------- BUY CONFIRM MESSAGE ****************************/
+.cart_icon_container{
+    position: relative;
+}
+
+.buyConfirm {
+    width: 250px;
+    background-color: green;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    font-size:1.1rem;
+    position: absolute;
+    right:10px;
+    height: 0;
+}
+.message{
+    height: 0px;
+}
+
+
+
+
+/***************************** TERMINA BUY CONFIRM MESSAGE /////////////////////////*
+
+/* ------------------------FOOTER--------------------------------- */
+footer{
+    border-top: 1px solid black;
+    margin-top: 4rem;
+    height: 120px;
+}
+a{
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 1.5rem;
+}
+.footer_container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 20px;
+    gap: 20px;
+}
+.footer_container a:hover{
+    text-decoration: underline;
+}
+.footer_icons{
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.footer_icons a{
+    font-size: 17px;
+}
+.footer_icons a:hover{
+    color: rgb(200, 200, 200);
+}
+}
